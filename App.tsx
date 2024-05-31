@@ -1,118 +1,48 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import { StyleSheet, Text, View } from 'react-native'
+import React, { useState } from 'react'
+//Form Validation
+import * as Yup from 'yup'
+export default function App() {
+  const PasswordSchema = Yup.object().shape({
+    PasswordLength: Yup.number()
+    .min (4,"Should be minimum 4 characters")
+    .max (16,"Shouldnt be more than 16 characters")
+    .required("Should must be filled")
+  })
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+const [password, setPassword] = useState('')
+const [isPasswordGenerated , setisPasswordGenerated] = useState(false)
+const [isLowercase,Lowercase] =useState(true)
+const [isUppercase,setUppercase] =useState(false)
+const [Numbers,useNumbers] =useState(false)
+const [Symbols,useSymbols] =useState(false)
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const generatePasswordString = (passwordLength: number) => {
+    let characterList = ''
+    const upperCaseCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    const lowerCaseCharacters= 'abcdefghijklmnopqrstuvwxyz'
+    const digitCharacters = '0123456789'
+}
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+const createPassword = (characters: string,passwordLength: number) => {
+    let result = ''
+    for (let i = 0; i < passwordLength; i++) {
+      const characterIndex = Math.round(Math.random()*characters.length)
+      result += characters.charAt(characterIndex)
+    }
+    return result
+  } 
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+const resetPassword = (characters: string) => {
+
+}
+
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+
+    <View>
+      <Text>App</Text>
     </View>
-  );
+  )
 }
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;
+const styles = StyleSheet.create({})
