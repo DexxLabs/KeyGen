@@ -18,15 +18,17 @@ const styles = StyleSheet.create({
     headercontainer :{
         flex :1,
         flexDirection: 'row',
-        justifyContent: 'flex-start',
-        margin:14
+        justifyContent: 'center',
+        margin:14,
+        paddingBottom: 20
         
     },
     headercontainerLight :{
       flex :1,
       flexDirection: 'row',
-      justifyContent: 'flex-start',
-      margin:14
+      justifyContent: 'center',
+      margin:14,
+      paddingBottom: 20
       
   },
     headertext: {
