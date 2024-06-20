@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         margin:14,
-        paddingBottom: 20
+        paddingBottom: 20,
+        
         
     },
     headercontainerLight :{
@@ -28,7 +29,8 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'center',
       margin:14,
-      paddingBottom: 20
+      paddingBottom: 20,
+      
       
   },
     headertext: {

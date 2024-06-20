@@ -110,6 +110,7 @@ const mode = useColorScheme() === 'dark'
          <View style={styles.inputcontainer}>
           <Text style={mode?styles.instruction : styles.instructionLight}>Include Lowercase</Text>
           <BouncyCheckbox 
+          fillColor="#75DA8B"
           isChecked={isLowercase}
           onPress={() => setLowercase(!isLowercase)}/>
          </View>
@@ -117,6 +118,8 @@ const mode = useColorScheme() === 'dark'
          <View style={styles.inputcontainer}>
          <Text style={mode?styles.instruction : styles.instructionLight}>Include Uppercase</Text>
           <BouncyCheckbox 
+          fillColor="#01CBC6"
+
           isChecked={isUppercase}
           onPress={() => setUppercase(!isUppercase)}/>                     
          </View>
@@ -124,6 +127,7 @@ const mode = useColorScheme() === 'dark'
          <View style={styles.inputcontainer}>
          <Text style={mode?styles.instruction : styles.instructionLight}>Include Numbers</Text>
           <BouncyCheckbox 
+          fillColor="#8B78E6"
           isChecked={Numbers}
           onPress={() => setNumbers(!Numbers)}/>
          </View>
@@ -131,6 +135,7 @@ const mode = useColorScheme() === 'dark'
          <View style={styles.inputcontainer}>
          <Text style={mode?styles.instruction : styles.instructionLight}>Include Symbols</Text>
           <BouncyCheckbox 
+          fillColor="#FF7F3E"
           isChecked={Symbols}
           onPress={() => setSymbols(!Symbols)}/>
          </View>
@@ -160,7 +165,7 @@ const mode = useColorScheme() === 'dark'
       <View>
         <View style={mode?styles.card : styles.cardLight}>
       <View>
-        <Text style={mode? styles.passwordText : styles.passwordTextLight}>{password}</Text>
+        <Text style={mode? styles.passwordText : styles.passwordTextLight} selectable={true}>{password}</Text>
       </View>
       <View>
         <Text style={mode? styles.description : styles.descriptionLight}>Long Press to Copy</Text>
