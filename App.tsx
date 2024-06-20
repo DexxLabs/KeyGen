@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import { Formik } from 'formik'
 import Header from './assets/Header'
 import Form from './assets/Form'
+import BouncyCheckbox from "react-native-bouncy-checkbox";
+
 //Form Validation
 import * as Yup from 'yup'
 export default function App() {
@@ -54,7 +56,7 @@ const createPassword = (characters: string,passwordLength: number) => {
     return result
   } 
 
-const resetPassword = (characters: string) => {
+const resetPassword = () => {
     setPassword("")
     setisPasswordGenerated(false)
     setLowercase(true)
@@ -89,36 +91,92 @@ const mode = useColorScheme() === 'dark'
          /* and other goodies */
        }) => (
          <>
-         <View style={styles.inputcontainer}>
+         <View >
             <View style={styles.inputfield} >
-            <Text style={mode?styles.instruction : styles.instructionLight}>Password Length :</Text>
+            <Text style={mode?styles.instruction : styles.instructionLight}>Password Length</Text>
               <TextInput style={mode?styles.inputstyle : styles.inputstyleLight}
                value={values.PasswordLength} 
                onChangeText={handleChange('PasswordLength') } 
-               placeholder='   Enter a value' 
-               keyboardType='numeric' />
+               placeholder='Enter a value' 
+               placeholderTextColor={mode?"grey": 'black'} // Change this to the color you want
+               
+               keyboardType= 'numeric' />
               
             </View>
+               {touched.PasswordLength && errors.PasswordLength && (
+                 <Text style={styles.errorMessage}>{errors.PasswordLength}</Text>
+               )}
          </View>
-         <View style={styles.inputcontainer}></View>
-         <View style={styles.inputcontainer}></View>
-         <View style={styles.inputcontainer}></View>
-         <View style={styles.inputcontainer}></View>
+         <View style={styles.inputcontainer}>
+          <Text style={mode?styles.instruction : styles.instructionLight}>Include Lowercase</Text>
+          <BouncyCheckbox 
+          fillColor="#75DA8B"
+          isChecked={isLowercase}
+          onPress={() => setLowercase(!isLowercase)}/>
+         </View>
+
+         <View style={styles.inputcontainer}>
+         <Text style={mode?styles.instruction : styles.instructionLight}>Include Uppercase</Text>
+          <BouncyCheckbox 
+          fillColor="#01CBC6"
+
+          isChecked={isUppercase}
+          onPress={() => setUppercase(!isUppercase)}/>                     
+         </View>
+
+         <View style={styles.inputcontainer}>
+         <Text style={mode?styles.instruction : styles.instructionLight}>Include Numbers</Text>
+          <BouncyCheckbox 
+          fillColor="#8B78E6"
+          isChecked={Numbers}
+          onPress={() => setNumbers(!Numbers)}/>
+         </View>
+
+         <View style={styles.inputcontainer}>
+         <Text style={mode?styles.instruction : styles.instructionLight}>Include Symbols</Text>
+          <BouncyCheckbox 
+          fillColor="#FF7F3E"
+          isChecked={Symbols}
+          onPress={() => setSymbols(!Symbols)}/>
+         </View>
+
 
          
          <View style={styles.formbuttons}>
-          <TouchableOpacity >
-            <Text style={mode?styles.buttons : styles.buttonsLight}>Reset Password</Text>
-          </TouchableOpacity>
-          <TouchableOpacity >
+          <TouchableOpacity
+          disabled={!isValid}
+          onPress={handleSubmit}
+          >
             <Text style={mode?styles.buttons : styles.buttonsLight}>Generate Password</Text>
           </TouchableOpacity>
+          <TouchableOpacity 
+          onPress={ () => {handleReset();
+          resetPassword()}}>
+            <Text style={mode?styles.buttons : styles.buttonsLight}>Reset Password</Text>
+          </TouchableOpacity>
 
-         </View>
+         </View> 
 
          </>
        )}
      </Formik>
+     
+     {isPasswordGenerated ? (
+      <View>
+        <View style={mode?styles.card : styles.cardLight}>
+      <View>
+        <Text style={mode? styles.passwordText : styles.passwordTextLight} selectable={true}>{password}</Text>
+      </View>
+      <View>
+        <Text style={mode? styles.description : styles.descriptionLight}>Long Press to Copy</Text>
+      </View>
+
+     </View>
+      </View>
+     ) : null }
+
+     
+
     </ScrollView>
     </SafeAreaView>
   )
@@ -135,6 +193,9 @@ const styles = StyleSheet.create({
   },
 
   inputcontainer:{
+    flex:1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     
   }
 ,
@@ -166,27 +227,74 @@ buttonsLight:{
 inputfield:{
   flexDirection: 'row',
   alignItems: 'center',
-  margin :12
+  marginBottom: 15,
+  justifyContent: 'space-evenly'
 },
 inputstyle:{
   borderColor: '#fff',
     borderWidth: 2,
     flex:1,
-    borderRadius: 20
+    borderRadius: 20,
+    marginRight :12
+    
 },
 inputstyleLight:{
   borderColor: '#000',
     borderWidth: 2,
     flex:1,
-    borderRadius: 20
+    borderRadius: 20,
+    margin :12
 },
 instruction:{
-  paddingRight: 12,
-  color: '#fff'
+  padding: 12,
+  color: '#fff',
+  fontWeight : 'bold'
 },
 instructionLight:{
-  paddingRight: 12,
-  color: '#000'
+  padding: 12,
+  color: '#000',
+  fontWeight : 'bold'
+},
+errorMessage:{  
+  color: '#ff0000',
+  flexDirection: 'row',
+  textAlign : 'center'
+},
+
+
+card:{
+  backgroundColor: '#fff',
+  height: 125,
+  borderRadius: 20,
+  margin: 12,
+  alignItems: 'center',
+    justifyContent: 'center'
+},
+cardLight:{
+  backgroundColor: '#000',
+  height: 125,
+  borderRadius: 20,
+  margin: 12,
+  alignItems: 'center',
+    justifyContent: 'center'
+},
+passwordText:{
+  color: '#000',
+  fontWeight:'bold',
+  fontSize: 30,
+},
+passwordTextLight:{
+  color: '#fff',
+  fontWeight:'bold',
+  fontSize: 30,
+},
+description :{
+  color: '#000',
+  
+},
+descriptionLight :{
+  color: '#fff',
+  
 },
 
 })
